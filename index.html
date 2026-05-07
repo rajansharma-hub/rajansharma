@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Signup Flip Card</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    
+    .card-container {
+      perspective: 1000px;
+      width: 320px;
+      height: 420px;
+    }
+    
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s;
+    }
+    
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+    
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      background: #1e293b;
+      border-radius: 12px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      color: white;
+    }
+    
+    .card-face.back {
+      transform: rotateY(180deg);
+    }
+    
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #38bdf8;
+    }
+    
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 6px;
+      background: #334155;
+      color: white;
+      font-size: 14px;
+    }
+    
+    input::placeholder {
+      color: #94a3b8;
+    }
+    
+    button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      background: #38bdf8;
+      color: #0f172a;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    
+    button:hover {
+      background: #0ea5e9;
+    }
+    
+    p {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #94a3b8;
+    }
+    
+    a {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card-container">
+    <div class="card" id="flipCard">
+      
+      <!-- Front Side - Login -->
+      <div class="card-face front">
+        <h2>Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email">
+        <input type="password" id="loginPass" placeholder="Password">
+        <button id="loginBtn">Login</button>
+        <p>Account nahi hai? <a id="showSignup">Signup karo</a></p>
+      </div>
+      
+      <!-- Back Side - Signup -->
+      <div class="card-face back">
+        <h2>Signup</h2>
+        <input type="text" id="signupName" placeholder="Full Name">
+        <input type="email" id="signupEmail" placeholder="Email">
+        <input type="password" id="signupPass" placeholder="Password">
+        <button id="signupBtn">Create Account</button>
+        <p>Pehle se account hai? <a id="showLogin">Login karo</a></p>
+      </div>
+      
+    </div>
+  </div>
+
+  <script>
+    const card = document.getElementById('flipCard');
+    const showSignup = document.getElementById('showSignup');
+    const showLogin = document.getElementById('showLogin');
+    const loginBtn = document.getElementById('loginBtn');
+    const signupBtn = document.getElementById('signupBtn');
+
+    // Signup text pe click = Card flip karke signup dikhao
+    showSignup.addEventListener('click', (e) => {
+      e.preventDefault();
+      card.classList.add('flipped');
+    });
+
+    // Login text pe click = Wapas flip karke login dikhao  
+    showLogin.addEventListener('click', (e) => {
+      e.preventDefault();
+      card.classList.remove('flipped');
+    });
+
+    // Login button = Card same rahega, flip nahi hoga
+    loginBtn.addEventListener('click', () => {
+      const email = document.getElementById('loginEmail').value;
+      const pass = document.getElementById('loginPass').value;
+      
+      if(email && pass) {
+        alert('Login Success! Card nahi ghuma 😎');
+        // Yahan tera login ka code daal
+      } else {
+        alert('Email Password daal bhai');
+      }
+    });
+
+    // Signup button = Account banne ke baad wapas login pe bhej de
+    signupBtn.addEventListener('click', () => {
+      const name = document.getElementById('signupName').value;
+      const email = document.getElementById('signupEmail').value;
+      const pass = document.getElementById('signupPass').value;
+      
+      if(name && email && pass) {
+        alert('Account ban gaya! Login karo ab');
+        card.classList.remove('flipped'); // Wapas login pe flip
+      } else {
+        alert('Saare field bhar bhai');
+      }
+    });
+  </script>
+
+</body>
